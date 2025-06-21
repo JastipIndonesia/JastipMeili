@@ -717,8 +717,8 @@
                             </h4>
                             <div class="form-group">
                                 <label class="form-label">WhatsApp:</label>
-                                <input type="text" id="whatsapp" class="form-control" placeholder="628123456789">
-                                <small style="color: var(--text-light);">Format: 628123456789 (tanpa tanda +)</small>
+                                <input type="text" id="whatsapp" class="form-control" placeholder="08123456789 atau 628123456789">
+                                <small style="color: var(--text-light);">Format: 08123456789, +628123456789, atau 628123456789</small>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Deskripsi WhatsApp:</label>
@@ -1374,16 +1374,36 @@
             orderForm.reset();
             
             // Send to WhatsApp
-            const whatsapp = dataManager.getSettings().whatsapp;
+            const settings = dataManager.getSettings();
+            const whatsapp = settings.whatsapp || '628123456789';
+            
+            // Clean phone number - remove any non-digits and ensure it starts with country code
+            let cleanNumber = whatsapp.replace(/\D/g, ''); // Remove all non-digits
+            
+            // If number starts with 08, replace with 628
+            if (cleanNumber.startsWith('08')) {
+                cleanNumber = '62' + cleanNumber.substring(1);
+            }
+            // If number starts with 8 (without 0), add 62
+            else if (cleanNumber.startsWith('8') && !cleanNumber.startsWith('62')) {
+                cleanNumber = '62' + cleanNumber;
+            }
+            // If number doesn't start with 62, add it
+            else if (!cleanNumber.startsWith('62')) {
+                cleanNumber = '62' + cleanNumber;
+            }
+            
             const message = `*PESANAN BARU - JASTIP MEILI*\n\n` +
                 `Nama: ${orderData.customerName}\n` +
                 `WhatsApp: ${orderData.customerPhone}\n` +
-                `Link Produk: ${orderData.productLink}\n` +
+                `Link Produk: ${orderData.productLink || 'Tidak ada'}\n` +
                 `Deskripsi: ${orderData.productDescription}\n` +
                 `Jumlah: ${orderData.quantity}\n` +
                 `Alamat: ${orderData.address}`;
             
-            const whatsappUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
+            
+            console.log('WhatsApp URL:', whatsappUrl); // Debug log
             window.open(whatsappUrl, '_blank');
         });
 
@@ -1474,10 +1494,27 @@
         function updateContactInfo() {
             const settings = dataManager.getSettings();
             
+        // Update contact info in real-time
+        function updateContactInfo() {
+            const settings = dataManager.getSettings();
+            
             // Update WhatsApp links and content
             const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
             whatsappLinks.forEach(link => {
-                link.href = `https://wa.me/${settings.whatsapp || '628123456789'}`;
+                const whatsapp = settings.whatsapp || '628123456789';
+                
+                // Clean phone number for WhatsApp
+                let cleanNumber = whatsapp.replace(/\D/g, '');
+                
+                if (cleanNumber.startsWith('08')) {
+                    cleanNumber = '62' + cleanNumber.substring(1);
+                } else if (cleanNumber.startsWith('8') && !cleanNumber.startsWith('62')) {
+                    cleanNumber = '62' + cleanNumber;
+                } else if (!cleanNumber.startsWith('62')) {
+                    cleanNumber = '62' + cleanNumber;
+                }
+                
+                link.href = `https://wa.me/${cleanNumber}`;
             });
             
             // Update Instagram links and content
