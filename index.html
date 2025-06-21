@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jastip Meili - Trusted China Shopping Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #e91e63;
+            --secondary: #2196f3;
+            --accent: #ff5722;
+            --bg-light: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #ffd700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-btn {
+            background: var(--accent);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: #d84315;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+
+        .section {
+            background: var(--white);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.9), rgba(33, 150, 243, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .product-image .placeholder-icon {
+            font-size: 4rem;
+            color: var(--text-light);
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-card:hover .product-image::before {
+            left: 100%;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-available {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .status-preorder {
+            background: rgba(255, 193, 7, 0.1);
+            color: #b8860b;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-light);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Product Management */
+        .product-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .product-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: 15px;
+        }
+
+        .btn-edit {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .tab-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Jastip Meili</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#catalog" class="nav-link">Katalog</a></li>
+                        <li><a href="#order" class="nav-link">Pesan</a></li>
+                        <li><a href="#about" class="nav-link">Tentang</a></li>
+                        <li><a href="#contact" class="nav-link">Kontak</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="admin-btn" id="adminBtn">
+                    <i class="fas fa-cog"></i> Admin
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero section">
+            <div class="container">
+                <h1>Jastip Terpercaya dari China</h1>
+                <p>Belanja produk berkualitas langsung dari China dengan harga terjangkau dan pelayanan terbaik</p>
+                <div class="cta-buttons">
+                    <a href="#catalog" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i>
+                        Lihat Katalog
+                    </a>
+                    <a href="#order" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i>
+                        Pesan Sekarang
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Admin Panel -->
+            <div id="adminPanel" class="admin-panel">
+                <div class="admin-header">
+                    <h2><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+                    <button id="closeAdmin" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-times"></i> Tutup
+                    </button>
+                </div>
+
+                <div id="loginForm" class="admin-login">
+                    <h3>Login Admin</h3>
+                    <div class="form-group">
+                        <label class="form-label">Password:</label>
+                        <input type="password" id="adminPassword" class="form-control" placeholder="Masukkan password admin">
+                    </div>
+                    <button id="loginBtn" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+
+                <div id="adminContent" class="admin-content" style="display: none;">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="products">
+                            <i class="fas fa-box"></i> Kelola Produk
+                        </button>
+                        <button class="tab-btn" data-tab="orders">
+                            <i class="fas fa-clipboard-list"></i> Pesanan
+                        </button>
+                        <button class="tab-btn" data-tab="settings">
+                            <i class="fas fa-cog"></i> Pengaturan
+                        </button>
+                    </div>
+
+                    <!-- Products Tab -->
+                    <div id="products-tab" class="tab-content active">
+                        <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                            <h3>Kelola Produk</h3>
+                            <button id="addProductBtn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Tambah Produk
+                            </button>
+                        </div>
+                        
+                        <div id="productForm" class="product-form" style="display: none; background: var(--bg-light); padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                            <h4 id="formTitle">Tambah Produk Baru</h4>
+                            <form id="productFormElement">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Produk:</label>
+                                    <input type="text" id="productName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Harga (Rp):</label>
+                                    <input type="number" id="productPrice" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Deskripsi:</label>
+                                    <textarea id="productDesc" class="form-control" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Status:</label>
+                                    <select id="productStatus" class="form-control">
+                                        <option value="available">Tersedia</option>
+                                        <option value="preorder">Pre-Order</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Gambar Produk:</label>
+                                    <input type="file" id="productImage" class="form-control" accept="image/*">
+                                    <small style="color: var(--text-light);">Format: JPG, PNG, GIF (Max 5MB)</small>
+                                    <div id="imagePreview" style="margin-top: 1rem; display: none;">
+                                        <img id="previewImg" style="max-width: 200px; max-height: 200px; border-radius: 10px; border: 2px solid var(--bg-light);" />
+                                        <button type="button" id="removeImage" class="btn btn-danger btn-sm" style="display: block; margin-top: 0.5rem;">
+                                            <i class="fas fa-trash"></i> Hapus Gambar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kategori:</label>
+                                    <select id="productCategory" class="form-control">
+                                        <option value="fashion">Fashion</option>
+                                        <option value="electronics">Elektronik</option>
+                                        <option value="beauty">Kecantikan</option>
+                                        <option value="accessories">Aksesoris</option>
+                                        <option value="home">Rumah Tangga</option>
+                                    </select>
+                                </div>
+                                <div class="product-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Simpan
+                                    </button>
+                                    <button type="button" id="cancelForm" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i> Batal
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="productList" class="product-list"></div>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div id="orders-tab" class="tab-content">
+                        <h3>Pesanan Masuk</h3>
+                        <div id="ordersList"></div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div id="settings-tab" class="tab-content">
+                        <h3>Pengaturan Website</h3>
+                        
+                        <!-- Store Info -->
+                        <div style="margin-bottom: 3rem; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                            <h4 style="color: var(--primary); margin-bottom: 1rem;">
+                                <i class="fas fa-store"></i> Informasi Toko
+                            </h4>
+                            <div class="form-group">
+                                <label class="form-label">Nama Toko:</label>
+                                <input type="text" id="storeName" class="form-control" value="Jastip Meili">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi Toko:</label>
+                                <textarea id="storeDesc" class="form-control" rows="3">Jastip terpercaya dari China dengan pelayanan terbaik</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Contact Settings -->
+                        <div style="margin-bottom: 3rem; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                            <h4 style="color: var(--primary); margin-bottom: 1rem;">
+                                <i class="fas fa-phone"></i> Kontak & Media Sosial
+                            </h4>
+                            <div class="form-group">
+                                <label class="form-label">WhatsApp:</label>
+                                <input type="text" id="whatsapp" class="form-control" placeholder="628123456789">
+                                <small style="color: var(--text-light);">Format: 628123456789 (tanpa tanda +)</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi WhatsApp:</label>
+                                <input type="text" id="whatsappDesc" class="form-control" placeholder="Chat langsung untuk konsultasi dan pemesanan">
+                                <small style="color: var(--text-light);">Teks yang tampil di bawah nomor WhatsApp</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Instagram:</label>
+                                <input type="text" id="instagram" class="form-control" placeholder="meili.china.jastip.po">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi Instagram:</label>
+                                <input type="text" id="instagramDesc" class="form-control" placeholder="Follow untuk update produk terbaru">
+                                <small style="color: var(--text-light);">Teks yang tampil di bawah Instagram</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email:</label>
+                                <input type="email" id="email" class="form-control" placeholder="info@jastipmeili.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Alamat Toko:</label>
+                                <textarea id="storeAddress" class="form-control" rows="2" placeholder="Alamat lengkap toko untuk pickup"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Business Settings -->
+                        <div style="margin-bottom: 2rem; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                            <h4 style="color: var(--primary); margin-bottom: 1rem;">
+                                <i class="fas fa-cog"></i> Pengaturan Bisnis
+                            </h4>
+                            <div class="form-group">
+                                <label class="form-label">Fee Jastip (%):</label>
+                                <input type="number" id="jastipFee" class="form-control" placeholder="10" min="0" max="100">
+                                <small style="color: var(--text-light);">Persentase fee dari harga barang</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Estimasi Pengiriman (hari):</label>
+                                <input type="text" id="shippingTime" class="form-control" placeholder="7-14 hari">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Minimum Order (Rp):</label>
+                                <input type="number" id="minOrder" class="form-control" placeholder="100000">
+                            </div>
+                        </div>
+
+                        <button id="saveSettings" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Simpan Semua Pengaturan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catalog Section -->
+            <section id="catalog" class="section">
+                <h2 class="section-title">Katalog Produk</h2>
+                <div class="filter-buttons" style="text-align: center; margin-bottom: 2rem;">
+                    <button class="btn btn-secondary btn-sm filter-btn active" data-filter="all">Semua</button>
+                    <button class="btn btn-secondary btn-sm filter-btn" data-filter="fashion">Fashion</button>
+                    <button class="btn btn-secondary btn-sm filter-btn" data-filter="electronics">Elektronik</button>
+                    <button class="btn btn-secondary btn-sm filter-btn" data-filter="beauty">Kecantikan</button>
+                    <button class="btn btn-secondary btn-sm filter-btn" data-filter="accessories">Aksesoris</button>
+                </div>
+                <div id="catalogGrid" class="product-grid"></div>
+            </section>
+
+            <!-- Order Section -->
+            <section id="order" class="section">
+                <h2 class="section-title">Pesan Produk</h2>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap:</label>
+                        <input type="text" id="customerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp:</label>
+                        <input type="tel" id="customerPhone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Link Produk (Taobao/Tmall/1688):</label>
+                        <input type="url" id="productLink" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deskripsi Produk:</label>
+                        <textarea id="productDescription" class="form-control" rows="4" placeholder="Jelaskan produk yang ingin dipesan, ukuran, warna, dll." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah:</label>
+                        <input type="number" id="quantity" class="form-control" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Alamat Pengiriman:</label>
+                        <textarea id="address" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Kirim Pesanan
+                    </button>
+                </form>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2 class="section-title">Tentang Jastip Meili</h2>
+                <div style="text-align: center;">
+                    <p style="font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                        Jastip Meili adalah layanan jasa titip terpercaya yang menghadirkan produk-produk berkualitas langsung dari China. 
+                        Dengan pengalaman dan jaringan supplier yang luas, kami berkomitmen memberikan pelayanan terbaik dengan harga yang kompetitif.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                            <h3>Terpercaya</h3>
+                            <p>Pelayanan transparan dan dapat diandalkan</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-shipping-fast" style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                            <h3>Cepat</h3>
+                            <p>Proses pesanan dan pengiriman yang efisien</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-dollar-sign" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
+                            <h3>Terjangkau</h3>
+                            <p>Harga kompetitif dengan kualitas terjamin</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
+                        <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25d366; margin-bottom: 1rem;"></i>
+                        <h3>WhatsApp</h3>
+                        <p id="whatsappDescDisplay">Chat langsung untuk konsultasi dan pemesanan</p>
+                        <a href="https://wa.me/628123456789" class="btn btn-success" id="whatsappContactBtn">
+                            <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                        </a>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class="fab fa-instagram" style="font-size: 3rem; color: #e4405f; margin-bottom: 1rem;"></i>
+                        <h3>Instagram</h3>
+                        <p id="instagramDescDisplay">Follow untuk update produk terbaru</p>
+                        <a href="https://instagram.com/meili.china.jastip.po" class="btn" style="background: #e4405f; color: white;" id="instagramContactBtn">
+                            <i class="fab fa-instagram"></i> Follow Instagram
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 id="footerStoreName">Jastip Meili</h3>
+                    <p id="footerStoreDesc">Jasa titip terpercaya dari China dengan pelayanan terbaik dan harga kompetitif.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Layanan</h3>
+                    <ul>
+                        <li><a href="#catalog">Katalog Produk</a></li>
+                        <li><a href="#order">Pemesanan</a></li>
+                        <li><a href="#">Tracking Pesanan</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li><a href="https://wa.me/628123456789" id="footerWhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="https://instagram.com/meili.china.jastip.po" id="footerInstagram"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="mailto:info@jastipmeili.com" id="footerEmail"><i class="fas fa-envelope"></i> Email</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kategori Produk</h3>
+                    <ul>
+                        <li><a href="#catalog">Fashion</a></li>
+                        <li><a href="#catalog">Elektronik</a></li>
+                        <li><a href="#catalog">Kecantikan</a></li>
+                        <li><a href="#catalog">Aksesoris</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 <span id="footerCopyright">Jastip Meili</span>. All rights reserved. | Jasa Titip Terpercaya dari China</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Storage with Auto-backup
+        class DataManager {
+            constructor() {
+                this.storageKey = 'jastip_meili_data';
+                this.backupInterval = 30000; // 30 seconds auto backup
+                this.data = this.loadData();
+                this.startAutoBackup();
+            }
+
+            loadData() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        return JSON.parse(stored);
+                    }
+                } catch (e) {
+                    console.error('Error loading data:', e);
+                }
+                
+                return {
+                    products: [
+                        {
+                            id: 1,
+                            name: "Tas Ransel Korea Style",
+                            price: 185000,
+                            description: "Tas ransel trendy dengan design Korea, bahan canvas berkualitas tinggi",
+                            status: "available",
+                            category: "fashion",
+                            image: null
+                        },
+                        {
+                            id: 2,
+                            name: "Earphone Bluetooth TWS",
+                            price: 125000,
+                            description: "Earphone wireless dengan kualitas suara jernih dan battery tahan lama",
+                            status: "preorder",
+                            category: "electronics",
+                            image: null
+                        },
+                        {
+                            id: 3,
+                            name: "Skincare Set Korean",
+                            price: 295000,
+                            description: "Set skincare Korea lengkap untuk perawatan wajah harian",
+                            status: "available",
+                            category: "beauty",
+                            image: null
+                        },
+                        {
+                            id: 4,
+                            name: "Jam Tangan Smartwatch",
+                            price: 450000,
+                            description: "Smartwatch dengan fitur lengkap, monitoring kesehatan dan notifikasi",
+                            status: "available",
+                            category: "electronics",
+                            image: null
+                        },
+                        {
+                            id: 5,
+                            name: "Kalung Fashion Korea",
+                            price: 85000,
+                            description: "Kalung trendy dengan design minimalis dan elegan",
+                            status: "available",
+                            category: "accessories",
+                            image: null
+                        },
+                        {
+                            id: 6,
+                            name: "Sepatu Sneakers Unisex",
+                            price: 350000,
+                            description: "Sepatu sneakers nyaman untuk daily wear, tersedia berbagai warna",
+                            status: "preorder",
+                            category: "fashion",
+                            image: null
+                        }
+                    ],
+                    orders: [],
+                    settings: {
+                        storeName: "Jastip Meili",
+                        storeDesc: "Jastip terpercaya dari China dengan pelayanan terbaik",
+                        whatsapp: "628123456789",
+                        whatsappDesc: "Chat langsung untuk konsultasi dan pemesanan",
+                        instagram: "meili.china.jastip.po",
+                        instagramDesc: "Follow untuk update produk terbaru",
+                        email: "info@jastipmeili.com",
+                        storeAddress: "Jakarta, Indonesia",
+                        jastipFee: 10,
+                        shippingTime: "7-14 hari",
+                        minOrder: 100000,
+                        footerDesc: "Jasa titip terpercaya dari China dengan pelayanan terbaik dan harga kompetitif."
+                    },
+                    adminPassword: "broski"
+                };
+            }
+
+            saveData() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+                    console.log('Data auto-saved at:', new Date().toLocaleTimeString());
+                } catch (e) {
+                    console.error('Error saving data:', e);
+                }
+            }
+
+            startAutoBackup() {
+                setInterval(() => {
+                    this.saveData();
+                }, this.backupInterval);
+            }
+
+            // Products
+            getProducts() { return this.data.products; }
+            addProduct(product) {
+                product.id = Date.now();
+                this.data.products.push(product);
+                this.saveData();
+            }
+            updateProduct(id, updatedProduct) {
+                const index = this.data.products.findIndex(p => p.id === id);
+                if (index !== -1) {
+                    this.data.products[index] = { ...updatedProduct, id };
+                    this.saveData();
+                }
+            }
+            deleteProduct(id) {
+                this.data.products = this.data.products.filter(p => p.id !== id);
+                this.saveData();
+            }
+
+            // Orders
+            getOrders() { return this.data.orders; }
+            addOrder(order) {
+                order.id = Date.now();
+                order.date = new Date().toLocaleString();
+                order.status = 'pending';
+                this.data.orders.push(order);
+                this.saveData();
+            }
+
+            // Settings
+            getSettings() { return this.data.settings; }
+            updateSettings(settings) {
+                this.data.settings = { ...this.data.settings, ...settings };
+                this.saveData();
+            }
+
+            // Admin
+            checkPassword(password) {
+                return password === this.data.adminPassword;
+            }
+        }
+
+        // Initialize Data Manager
+        const dataManager = new DataManager();
+
+        // App State
+        let isAdminLoggedIn = false;
+        let editingProductId = null;
+        let currentProductImage = null;
+
+        // DOM Elements
+        const adminBtn = document.getElementById('adminBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const closeAdmin = document.getElementById('closeAdmin');
+        const loginForm = document.getElementById('loginForm');
+        const adminContent = document.getElementById('adminContent');
+        const loginBtn = document.getElementById('loginBtn');
+        const adminPassword = document.getElementById('adminPassword');
+        const productImageInput = document.getElementById('productImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removeImageBtn = document.getElementById('removeImage');
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('href').substring(1);
+                
+                // Update active nav
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Smooth scroll
+                document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Admin Panel Toggle
+        adminBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            adminPanel.classList.toggle('active');
+        });
+
+        closeAdmin.addEventListener('click', () => {
+            adminPanel.classList.remove('active');
+        });
+
+        // Admin Login
+        loginBtn.addEventListener('click', () => {
+            const password = adminPassword.value;
+            if (dataManager.checkPassword(password)) {
+                isAdminLoggedIn = true;
+                loginForm.style.display = 'none';
+                adminContent.style.display = 'block';
+                showAlert('Login berhasil!', 'success');
+                loadProductList();
+                loadOrdersList();
+                loadSettings();
+            } else {
+                showAlert('Password salah!', 'error');
+            }
+        });
+
+        // Tab System
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName + '-tab').classList.add('active');
+            });
+        });
+
+        // Image Upload Handling
+        productImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showAlert('Ukuran file terlalu besar! Maksimal 5MB', 'error');
+                    productImageInput.value = '';
+                    return;
+                }
+
+                // Check file type
+                if (!file.type.startsWith('image/')) {
+                    showAlert('File harus berupa gambar!', 'error');
+                    productImageInput.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    currentProductImage = e.target.result;
+                    previewImg.src = currentProductImage;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImageBtn.addEventListener('click', () => {
+            currentProductImage = null;
+            previewImg.src = '';
+            imagePreview.style.display = 'none';
+            productImageInput.value = '';
+        });
+
+        // Product Management
+        const addProductBtn = document.getElementById('addProductBtn');
+        const productForm = document.getElementById('productForm');
+        const productFormElement = document.getElementById('productFormElement');
+        const cancelForm = document.getElementById('cancelForm');
+
+        addProductBtn.addEventListener('click', () => {
+            editingProductId = null;
+            currentProductImage = null;
+            document.getElementById('formTitle').textContent = 'Tambah Produk Baru';
+            productFormElement.reset();
+            imagePreview.style.display = 'none';
+            productForm.style.display = 'block';
+        });
+
+        cancelForm.addEventListener('click', () => {
+            productForm.style.display = 'none';
+            editingProductId = null;
+            currentProductImage = null;
+            imagePreview.style.display = 'none';
+        });
+
+        productFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const productData = {
+                name: document.getElementById('productName').value,
+                price: parseInt(document.getElementById('productPrice').value),
+                description: document.getElementById('productDesc').value,
+                status: document.getElementById('productStatus').value,
+                category: document.getElementById('productCategory').value,
+                image: currentProductImage
+            };
+
+            if (editingProductId) {
+                dataManager.updateProduct(editingProductId, productData);
+                showAlert('Produk berhasil diupdate!', 'success');
+            } else {
+                dataManager.addProduct(productData);
+                showAlert('Produk berhasil ditambahkan!', 'success');
+            }
+
+            productForm.style.display = 'none';
+            loadProductList();
+            loadCatalog();
+            editingProductId = null;
+            currentProductImage = null;
+            imagePreview.style.display = 'none';
+        });
+
+        function loadProductList() {
+            const productList = document.getElementById('productList');
+            const products = dataManager.getProducts();
+            
+            productList.innerHTML = products.map(product => `
+                <div class="product-item">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="width: 60px; height: 60px; border-radius: 8px; overflow: hidden; background: var(--bg-light); display: flex; align-items: center; justify-content: center;">
+                            ${product.image ? 
+                                `<img src="${product.image}" style="width: 100%; height: 100%; object-fit: cover;" alt="${product.name}">` : 
+                                `<i class="fas fa-${getCategoryIcon(product.category)}" style="color: var(--text-light);"></i>`
+                            }
+                        </div>
+                        <div>
+                            <strong>${product.name}</strong><br>
+                            <span style="color: var(--primary);">Rp ${product.price.toLocaleString()}</span><br>
+                            <small style="color: var(--text-light);">${product.category} | ${product.status}</small>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit btn-sm" onclick="editProduct(${product.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-delete btn-sm" onclick="deleteProduct(${product.id})">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editProduct(id) {
+            const product = dataManager.getProducts().find(p => p.id === id);
+            if (product) {
+                editingProductId = id;
+                currentProductImage = product.image || null;
+                
+                document.getElementById('formTitle').textContent = 'Edit Produk';
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productDesc').value = product.description;
+                document.getElementById('productStatus').value = product.status;
+                document.getElementById('productCategory').value = product.category;
+                
+                // Show image preview if exists
+                if (product.image) {
+                    previewImg.src = product.image;
+                    imagePreview.style.display = 'block';
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+                
+                productForm.style.display = 'block';
+            }
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Yakin ingin menghapus produk ini?')) {
+                dataManager.deleteProduct(id);
+                showAlert('Produk berhasil dihapus!', 'success');
+                loadProductList();
+                loadCatalog();
+            }
+        }
+
+        // Catalog Display
+        function loadCatalog() {
+            const catalogGrid = document.getElementById('catalogGrid');
+            const products = dataManager.getProducts();
+            
+            catalogGrid.innerHTML = products.map(product => `
+                <div class="product-card animate-fade-in" data-category="${product.category}">
+                    <div class="product-image">
+                        ${product.image ? 
+                            `<img src="${product.image}" alt="${product.name}">` : 
+                            `<i class="fas fa-${getCategoryIcon(product.category)} placeholder-icon"></i>`
+                        }
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-price">Rp ${product.price.toLocaleString()}</div>
+                        <div class="product-desc">${product.description}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <span class="product-status status-${product.status}">
+                                ${product.status === 'available' ? 'Tersedia' : 'Pre-Order'}
+                            </span>
+                            <button class="btn btn-primary btn-sm" onclick="quickOrder('${product.name}', ${product.price})" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                                <i class="fas fa-shopping-cart"></i> Pesan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                fashion: 'tshirt',
+                electronics: 'laptop',
+                beauty: 'spa',
+                accessories: 'ring',
+                home: 'home'
+            };
+            return icons[category] || 'box';
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // Update active filter
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter products
+                const products = document.querySelectorAll('.product-card');
+                products.forEach(product => {
+                    if (filter === 'all' || product.dataset.category === filter) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Order Form
+        const orderForm = document.getElementById('orderForm');
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const orderData = {
+                customerName: document.getElementById('customerName').value,
+                customerPhone: document.getElementById('customerPhone').value,
+                productLink: document.getElementById('productLink').value,
+                productDescription: document.getElementById('productDescription').value,
+                quantity: parseInt(document.getElementById('quantity').value),
+                address: document.getElementById('address').value
+            };
+
+            dataManager.addOrder(orderData);
+            showAlert('Pesanan berhasil dikirim! Kami akan segera menghubungi Anda.', 'success');
+            orderForm.reset();
+            
+            // Send to WhatsApp
+            const whatsapp = dataManager.getSettings().whatsapp;
+            const message = `*PESANAN BARU - JASTIP MEILI*\n\n` +
+                `Nama: ${orderData.customerName}\n` +
+                `WhatsApp: ${orderData.customerPhone}\n` +
+                `Link Produk: ${orderData.productLink}\n` +
+                `Deskripsi: ${orderData.productDescription}\n` +
+                `Jumlah: ${orderData.quantity}\n` +
+                `Alamat: ${orderData.address}`;
+            
+            const whatsappUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Load Orders
+        function loadOrdersList() {
+            const ordersList = document.getElementById('ordersList');
+            const orders = dataManager.getOrders();
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p style="text-align: center; color: var(--text-light);">Belum ada pesanan masuk</p>';
+                return;
+            }
+            
+            ordersList.innerHTML = orders.map(order => `
+                <div class="product-item">
+                    <div>
+                        <strong>${order.customerName}</strong><br>
+                        <small>📱 ${order.customerPhone}</small><br>
+                        <small>📅 ${order.date}</small><br>
+                        <p style="margin-top: 0.5rem;">${order.productDescription}</p>
+                        ${order.productLink ? `<a href="${order.productLink}" target="_blank" style="color: var(--primary);">🔗 Lihat Produk</a>` : ''}
+                    </div>
+                    <div>
+                        <span class="product-status status-${order.status}">
+                            ${order.status === 'pending' ? 'Menunggu' : order.status}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Settings
+        function loadSettings() {
+            const settings = dataManager.getSettings();
+            document.getElementById('storeName').value = settings.storeName || 'Jastip Meili';
+            document.getElementById('storeDesc').value = settings.storeDesc || '';
+            document.getElementById('whatsapp').value = settings.whatsapp || '';
+            document.getElementById('whatsappDesc').value = settings.whatsappDesc || 'Chat langsung untuk konsultasi dan pemesanan';
+            document.getElementById('instagram').value = settings.instagram || '';
+            document.getElementById('instagramDesc').value = settings.instagramDesc || 'Follow untuk update produk terbaru';
+            document.getElementById('email').value = settings.email || '';
+            document.getElementById('storeAddress').value = settings.storeAddress || '';
+            document.getElementById('jastipFee').value = settings.jastipFee || 10;
+            document.getElementById('shippingTime').value = settings.shippingTime || '7-14 hari';
+            document.getElementById('minOrder').value = settings.minOrder || 100000;
+        }
+
+        document.getElementById('saveSettings').addEventListener('click', () => {
+            const settings = {
+                storeName: document.getElementById('storeName').value,
+                storeDesc: document.getElementById('storeDesc').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                whatsappDesc: document.getElementById('whatsappDesc').value,
+                instagram: document.getElementById('instagram').value,
+                instagramDesc: document.getElementById('instagramDesc').value,
+                email: document.getElementById('email').value,
+                storeAddress: document.getElementById('storeAddress').value,
+                jastipFee: parseFloat(document.getElementById('jastipFee').value) || 10,
+                shippingTime: document.getElementById('shippingTime').value,
+                minOrder: parseInt(document.getElementById('minOrder').value) || 100000,
+                footerDesc: document.getElementById('storeDesc').value || 'Jasa titip terpercaya dari China dengan pelayanan terbaik dan harga kompetitif.'
+            };
+            
+            dataManager.updateSettings(settings);
+            showAlert('Semua pengaturan berhasil disimpan!', 'success');
+            
+            // Update dynamic content
+            updateContactInfo();
+        });
+
+        // Quick Order Function
+        function quickOrder(productName, productPrice) {
+            // Scroll to order section
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+            
+            // Pre-fill the product description with selected product
+            setTimeout(() => {
+                const productDesc = document.getElementById('productDescription');
+                productDesc.value = `${productName} - Rp ${productPrice.toLocaleString()}`;
+                productDesc.focus();
+                
+                // Show notification
+                showAlert(`Produk "${productName}" sudah dipilih! Lengkapi form pemesanan di bawah.`, 'success');
+            }, 800);
+        }
+
+        // Update contact info in real-time
+        function updateContactInfo() {
+            const settings = dataManager.getSettings();
+            
+            // Update WhatsApp links and content
+            const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+            whatsappLinks.forEach(link => {
+                link.href = `https://wa.me/${settings.whatsapp || '628123456789'}`;
+            });
+            
+            // Update Instagram links and content
+            const instagramLinks = document.querySelectorAll('a[href*="instagram.com"]');
+            instagramLinks.forEach(link => {
+                const instagramHandle = settings.instagram ? settings.instagram.replace('@', '') : 'meili.china.jastip.po';
+                link.href = `https://instagram.com/${instagramHandle}`;
+            });
+            
+            // Update email links
+            const emailLinks = document.querySelectorAll('a[href*="mailto"]');
+            emailLinks.forEach(link => {
+                link.href = `mailto:${settings.email || 'info@jastipmeili.com'}`;
+            });
+            
+            // Update contact section descriptions
+            const whatsappDesc = document.getElementById('whatsappDescDisplay');
+            if (whatsappDesc) {
+                whatsappDesc.textContent = settings.whatsappDesc || 'Chat langsung untuk konsultasi dan pemesanan';
+            }
+            
+            const instagramDesc = document.getElementById('instagramDescDisplay');
+            if (instagramDesc) {
+                instagramDesc.textContent = settings.instagramDesc || 'Follow untuk update produk terbaru';
+            }
+            
+            // Update footer content
+            const footerStoreName = document.getElementById('footerStoreName');
+            if (footerStoreName) {
+                footerStoreName.textContent = settings.storeName || 'Jastip Meili';
+            }
+            
+            const footerStoreDesc = document.getElementById('footerStoreDesc');
+            if (footerStoreDesc) {
+                footerStoreDesc.textContent = settings.footerDesc || settings.storeDesc || 'Jasa titip terpercaya dari China dengan pelayanan terbaik dan harga kompetitif.';
+            }
+            
+            const footerCopyright = document.getElementById('footerCopyright');
+            if (footerCopyright) {
+                footerCopyright.textContent = settings.storeName || 'Jastip Meili';
+            }
+            
+            // Update store name in header
+            const logoText = document.querySelector('.logo span');
+            if (logoText) {
+                logoText.textContent = settings.storeName || 'Jastip Meili';
+            }
+            
+            // Update page title
+            document.title = `${settings.storeName || 'Jastip Meili'} - Trusted China Shopping Service`;
+        }
+
+        // Alert System
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+                max-width: 400px;
+                animation: fadeInUp 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCatalog();
+            updateContactInfo(); // Load contact info on page load
+            
+            // Show data persistence message
+            console.log('✅ Jastip Meili Website Ready!');
+            console.log('📊 Data akan otomatis tersimpan setiap 30 detik');
+            console.log('🔐 Password admin: broski');
+            console.log('💾 Data tersimpan di localStorage browser');
+            console.log('📷 Upload gambar produk dari laptop tersedia!');
+            console.log('📝 Fitur edit contact lengkap!');
+        });
+
+        // Handle page visibility for data saving
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                dataManager.saveData();
+                console.log('🔄 Data saved before page became hidden');
+            }
+        });
+
+        // Save data before page unload
+        window.addEventListener('beforeunload', () => {
+            dataManager.saveData();
+        });
+
+        // Global functions for onclick handlers
+        window.editProduct = editProduct;
+        window.deleteProduct = deleteProduct;
+        window.quickOrder = quickOrder;
+    </script>
+</body>
+</html>
